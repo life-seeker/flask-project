@@ -1,19 +1,90 @@
-<div class="gallery">
-    {% for photo in photos %}
-        <img src="{{ url_for('static', filename='uploads/' + photo) }}" alt="{{ photo }}" width="200">
-        <!-- <form action="/delete/{{ photo }}" method="post">
-            <button type="submit">Delete</button>
-        </form> -->
-         
-    {% endfor %}
-<form action="/upload" method="post"enctype="multipart/form-data">
-    <div>
-        <label for="file">Choose an image to upload:</label>
-         <input type="file"name=file> </input>
-    <div>
-         <input type="submit"value="upload">upload </input>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aesthetic Images Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #222;
+            color: #fff;
+            padding: 24px 0 16px 0;
+            text-align: center;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 0 0 32px 0;
+        }
+        .gallery img {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            width: 220px;
+            height: 180px;
+            object-fit: cover;
+            background: #fff;
+            padding: 6px;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        }
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .upload-form label {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        .upload-form input[type="file"] {
+            margin-bottom: 12px;
+        }
+        .upload-form input[type="submit"] {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .upload-form input[type="submit"]:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Aesthetic Images</div>
+    <h1 style="text-align: center; color: red; font-size: 1.1em; margin-top: 0;">
+        Upload and View Your Favorite Images
+    </h1>
+        
+ 
+    <div class="gallery">
+        {% for photo in photos %}
+            <img src="{{ url_for('static', filename='uploads/' + photo) }}" alt="{{ photo }}">
+        {% endfor %}
     </div>
-        </div>
-</form>
-</div>
+    <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Choose an image to upload:</label>
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
